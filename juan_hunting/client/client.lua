@@ -51,60 +51,58 @@
             elseif quality == Animal[i]["good"] then
 
                 entity = holding
-                if IsControlPressed(0, 0x760A9C6F) then
-                    local endpiece = shops[a]["gain"] * Animal[i]["reward"]
-                    --DetachEntity(entity, 1, 1)
-                    Wait(500)
-                    SetEntityAsMissionEntity(entity, true, true)
-                    Wait(500)
-                    DeleteEntity(entity)
-                    Wait(10)
-                    TriggerServerEvent("hunting:money", endpiece)
-                    TriggerServerEvent("hunting:xp", endpiece)
-                    TriggerServerEvent("hunting:money", endpiece)
-                    TriggerServerEvent("hunting:xp", endpiece)
-                    TriggerEvent("redemrp_notification:start", "You sold your good "..Animal[i]["name"].." pelt", 2, "success")
-                    Wait(500)
-                    if holding == 0 then
-                        print("sold Hide")
-                    else
-                        print("Something went wrong")
-                    end
-
-                elseif quality == Animal[i]["perfect"] then
-
-                    entity = holding
-                    if IsControlPressed(0, 0x760A9C6F) then
-                        local endpiece = shops[a]["gain"] * Animal[i]["reward"]
-                        --DetachEntity(entity, 1, 1)
-                        Wait(500)
-                        SetEntityAsMissionEntity(entity, true, true)
-                        Wait(500)
-                        DeleteEntity(entity)
-                        Wait(10)
-                        TriggerServerEvent("hunting:money", endpiece)
-                        TriggerServerEvent("hunting:xp", endpiece)
-                        TriggerServerEvent("hunting:money", endpiece)
-                        TriggerServerEvent("hunting:xp", endpiece)
-                        TriggerServerEvent("hunting:money", endpiece)
-                        TriggerServerEvent("hunting:xp", endpiece)
-                        TriggerEvent("redemrp_notification:start", "You sold your perfect "..Animal[i]["name"].." pelt", 2, "success")
-                        Wait(500)
-                        if holding == 0 then
-                            print("sold Hide")
-                        else
-                            print("Something went wrong")
-                        end
-
-                    end
+                local endpiece = shops[a]["gain"] * Animal[i]["reward"]
+                --DetachEntity(entity, 1, 1)
+                Wait(500)
+                SetEntityAsMissionEntity(entity, true, true)
+                Wait(500)
+                DeleteEntity(entity)
+                Wait(10)
+                TriggerServerEvent("hunting:money", endpiece)
+                TriggerServerEvent("hunting:xp", endpiece)
+                TriggerServerEvent("hunting:money", endpiece)
+                TriggerServerEvent("hunting:xp", endpiece)
+                TriggerEvent("redemrp_notification:start", "You sold your good "..Animal[i]["name"].." pelt", 2, "success")
+                Wait(500)
+                if holding == 0 then
+                    print("sold Hide")
+                else
+                    print("Something went wrong")
                 end
-            elseif holding == false then
-                -------------------
-                Wait(50)
+
+            elseif quality == Animal[i]["perfect"] then
+
+                entity = holding
+                local endpiece = shops[a]["gain"] * Animal[i]["reward"]
+                --DetachEntity(entity, 1, 1)
+                Wait(500)
+                SetEntityAsMissionEntity(entity, true, true)
+                Wait(500)
+                DeleteEntity(entity)
+                Wait(10)
+                TriggerServerEvent("hunting:money", endpiece)
+                TriggerServerEvent("hunting:xp", endpiece)
+                TriggerServerEvent("hunting:money", endpiece)
+                TriggerServerEvent("hunting:xp", endpiece)
+                TriggerServerEvent("hunting:money", endpiece)
+                TriggerServerEvent("hunting:xp", endpiece)
+                TriggerEvent("redemrp_notification:start", "You sold your perfect "..Animal[i]["name"].." pelt", 2, "success")
+                Wait(500)
+                if holding == 0 then
+                    print("sold Hide")
+                else
+                    print("Something went wrong")
+                end
+
             end
         end
+    elseif holding == false then
+        -------------------
+        Wait(50)
     end
 end
+
+
 
 
 Citizen.CreateThread(function()
@@ -120,8 +118,8 @@ Citizen.CreateThread(function()
             local shopV = vector3(shops[a]["x"], shops[a]["y"], shops[a]["z"])
             local dst = Vdist(shopV, myV)
             if dst < 2 then
-                TriggerEvent("hunting:showprompt", "Press [G] to sell carcass/pelt to butcher.")
-                if IsControlPressed(0, 0x760A9C6F) then
+                TriggerEvent("hunting:showprompt", "Press [ENTER] to sell carcass/pelt to butcher.")
+                if IsControlPressed(0, 0xC7B5340A) then
                     Sell(a)
                 end
             end
