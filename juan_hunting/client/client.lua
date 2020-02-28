@@ -1,6 +1,4 @@
-Citizen.CreateThread(function()
-    Wait(500)
-    while true do
+   function Sell()
         Wait(50)
         local ped = PlayerPedId()
         local coords = GetEntityCoords(ped)
@@ -154,7 +152,6 @@ Citizen.CreateThread(function()
             Wait(50)
         end
     end
-end)
 
 RegisterNetEvent("hunting:showprompt")
 AddEventHandler("hunting:showprompt", function(msg)
