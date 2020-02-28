@@ -104,6 +104,31 @@
         end
     end
 
+Citizen.CreateThread(function()
+    Wait(500)
+    while true do
+        Wait(10)
+
+        local ped = PlayerPedId()
+        local coords = GetEntityCoords(ped)
+
+        for a = 1, #shops do
+            local myV = vector3(coords)
+            local shopV = vector3(shops[a]["x"], shops[a]["y"], shops[a]["z"])
+            local dst = Vdist(shopV, myV)
+            if dst < 2 then
+                TriggerEvent("hunting:showprompt", "Press [G] to sell carcass/pelt to butcher.")
+                if IsControlPressed(0, 0x760A9C6F) then
+                    Sell(a)
+                end
+            end
+        end
+    end
+end)
+
+
+
+
 RegisterNetEvent("hunting:showprompt")
 AddEventHandler("hunting:showprompt", function(msg)
     SetTextScale(0.5, 0.5)
@@ -113,31 +138,4 @@ AddEventHandler("hunting:showprompt", function(msg)
 end)
   
 
-  --SNIPPET FROM CRYPTOGENICS, HOW I BUILT IT--
---[[Citizen.CreateThread(function()
-    Wait(500)
-    while true do
-        Wait(100)
-        local entity = Citizen.InvokeNative(0xD806CD2A4F2C2996, PlayerPedId())
-        local model = GetEntityModel(entity)
-        local carriedEntityHash = Citizen.InvokeNative(0x31FEF6A20F00B963, entity)
-        local type = GetPedType(entity)
-            if type == 28 then
-                print(" ")
-                print("Carcass Model")
-                print(model)
-        else
-            print(" ")
-            print("Not holding carcass")
-        end
-        if carriedEntityHash then
-            print(" ")
-            print("Pelt Model")
-            print(carriedEntityHash)
-        elseif carriedEntityHash == nil then
-            print(" ")
-            print("Not holding Provision")
-            Wait(1000)
-        end
-    end
-end)]]--
+  
