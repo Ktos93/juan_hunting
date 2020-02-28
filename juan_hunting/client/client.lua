@@ -1,5 +1,4 @@
-   function Sell()
-        Wait(50)
+   function Sell(current_shop)
         local ped = PlayerPedId()
         local coords = GetEntityCoords(ped)
         local holding = Citizen.InvokeNative(0xD806CD2A4F2C2996, ped) -- ISPEDHOLDING
@@ -10,15 +9,8 @@
         if holding ~= false then
             for i, row in pairs(Animal) do
                 if model == Animal[i]["model"] then
-                    for a = 1, #shops do 
-                        local myV = vector3(coords)
-                        local shopV = vector3(shops[a]["x"], shops[a]["y"], shops[a]["z"])
-                        local dst = Vdist(shopV, myV)
-                        if dst < 1 then
-                            TriggerEvent("hunting:showprompt", "Press [G] to sell carcass/pelt to butcher.")
                             entity = holding
-                            if IsControlPressed(0, 0x760A9C6F) then
-                                local endpiece = shops[a]["gain"] * Animal[i]["reward"]
+                                local endpiece = shops[current_shop]["gain"] * Animal[i]["reward"]
                                 --DetachEntity(entity, 1, 1)
                                 Wait(500)
                                 SetEntityAsMissionEntity(entity, true, true)
@@ -35,21 +27,11 @@
                                 else
                                     print("Something went wrong")
                                 end
-                            end
-                        else
-                            Wait(50)
-                        end
-                    end
+                       
+                 
                 elseif quality == Animal[i]["poor"] then
-                    for a = 1, #shops do 
-                        local myV = vector3(coords)
-                        local shopV = vector3(shops[a]["x"], shops[a]["y"], shops[a]["z"])
-                        local dst = Vdist(shopV, myV)
-                        if dst < 1 then
-                            TriggerEvent("hunting:showprompt")
                             entity = holding
-                            if IsControlPressed(0, 0x760A9C6F) then
-                                local endpiece = shops[a]["gain"] * Animal[i]["reward"]
+                                local endpiece = shops[current_shop]["gain"] * Animal[i]["reward"]
                                 --DetachEntity(entity, 1, 1)
                                 Wait(500)
                                 SetEntityAsMissionEntity(entity, true, true)
@@ -65,18 +47,9 @@
                                 else
                                     print("Something went wrong")
                                 end
-                            end
-                        else
-                            Wait(50)
-                        end
-                    end
+           
                 elseif quality == Animal[i]["good"] then
-                    for a = 1, #shops do 
-                        local myV = vector3(coords)
-                        local shopV = vector3(shops[a]["x"], shops[a]["y"], shops[a]["z"])
-                        local dst = Vdist(shopV, myV)
-                        if dst < 1 then
-                            TriggerEvent("hunting:showprompt", "Press [G] to sell carcass/pelt to butcher.")
+     
                             entity = holding
                             if IsControlPressed(0, 0x760A9C6F) then
                                 local endpiece = shops[a]["gain"] * Animal[i]["reward"]
@@ -97,18 +70,9 @@
                                 else
                                     print("Something went wrong")
                                 end
-                            end
-                        else
-                            Wait(50)
-                        end
-                    end
+                 
                 elseif quality == Animal[i]["perfect"] then
-                    for a = 1, #shops do 
-                        local myV = vector3(coords)
-                        local shopV = vector3(shops[a]["x"], shops[a]["y"], shops[a]["z"])
-                        local dst = Vdist(shopV, myV)
-                        if dst < 1 then
-                            TriggerEvent("hunting:showprompt", "Press [G] to sell carcass/pelt to butcher.")
+         
                             entity = holding
                             if IsControlPressed(0, 0x760A9C6F) then
                                 local endpiece = shops[a]["gain"] * Animal[i]["reward"]
@@ -131,24 +95,11 @@
                                 else
                                     print("Something went wrong")
                                 end
-                            end
-                        else
-                            Wait(50)
-                        end
-                    end
+           
                 end
             end
         elseif holding == false then
-            for a = 1, #shops do 
-                local myV = vector3(coords)
-                local shopV = vector3(shops[a]["x"], shops[a]["y"], shops[a]["z"])
-                local dst = Vdist(shopV, myV)
-                if dst < 1 then
-                    TriggerEvent("hunting:showprompt", "You are not holding any pelt or carcass.")
-                else
-                    Wait(50)
-                end
-            end
+            -------------------
             Wait(50)
         end
     end
